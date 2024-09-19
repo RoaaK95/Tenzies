@@ -24,8 +24,9 @@ function App() {
       {diceElements}
        </div>
       <button
+      className='roll-dice'
       onClick={rollDice}
-      >Roll Dice
+      >Roll
       </button>
     </main>
   )
