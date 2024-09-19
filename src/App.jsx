@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import Die from '../Die'
- 
+
 
 function App() {
   
@@ -10,12 +10,14 @@ function App() {
       const newDice=[];
       for(let i = 0; i < 10; i++)
       {
-       newDice.push(Math.ceil(Math.random()*6) )
+       newDice.push({
+        value: Math.ceil(Math.random()*6),
+        isHeld: true})
       }
       return newDice;
     }
    
-    const diceElements=dice.map(die => <Die value={die}/>)
+    const diceElements=dice.map(die => <Die value={die.value} isHeld={die.isHeld}/>)
 
     const rollDice = (()=> setDice(allNewDice()))
   return (
