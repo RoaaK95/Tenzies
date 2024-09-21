@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react'
 import Die from '../Die'
 import { nanoid } from 'nanoid';
 import Confetti from 'react-confetti'
-
+ 
 function App() {
+
   
   const [dice,setDice]= useState(allNewDice())
   const [tenzies,setTenzies] = useState(false)
@@ -15,7 +16,6 @@ function App() {
     if(allHeld && allSameValue)
     {
       setTenzies(true)
-      console.log("win")
     }
   },[dice])
   function generateNewDice(){
@@ -36,14 +36,22 @@ function App() {
    
     const diceElements=dice.map(die => <Die key={die.id} value={die.value} isHeld={die.isHeld} holdDice={()=> holdDice(die.id)}/>)
     const buttonText = tenzies ? "New Game": "Roll"
+
     function rollDice(){
-      setDice(oldDice => oldDice.map(die =>{
-      return die.isHeld ? 
-       die : 
-       generateNewDice()
+      if(!tenzies){
+        setDice(oldDice => oldDice.map(die =>{
+          return die.isHeld ? 
+           die : 
+           generateNewDice()
+          }
+          ))
       }
-      ))
+      else{
+        setTenzies(false)
+        setDice(allNewDice())
+      }
     }
+
     function holdDice(id){
       setDice(oldDice => oldDice.map(die =>
         die.id === id ? 
